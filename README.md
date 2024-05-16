@@ -6,7 +6,7 @@ This is a simple front-end to-do list application implemented in Java Swing. It 
 1. **Add Task**: Users can add a new task to the list by providing the task name, due date, and priority.
 2. **Delete Task**: Users can delete a task from the list.
 3. **Toggle Bullet List**: Users can toggle the display format between using bullet points and numbering for task lists.
-4. **Complete Task**: Users can mark a task as completed with the new strke-through feature.
+4. **Complete Task**: Users can mark a task as completed with the new grey-out feature.
 5. **Display Tasks**: Users can view all tasks currently in the list.
 6. **Save Tasks**: Users can save the current list of tasks to a file.
 7. **Load Tasks**: Users can load tasks from a previously saved file.
