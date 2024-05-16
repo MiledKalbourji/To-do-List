@@ -244,16 +244,16 @@ public class ToDoListApp {
                 Task task = (Task) value;
                 String taskText;
                 if (task.completed) {
-                    taskText = "<html><strike>" + task.name + " (Due: " + task.dueDate + ", Priority: " + task.priority + ")</strike></html>";
-                } else {
-                    taskText = task.name + " (Due: " + task.dueDate + ", Priority: " + task.priority + ")";
-                }
-                if (useBulletList) {
-                    setText("\u2022 " + taskText); // Add bullet point
-                } else {
-                    setText((index + 1) + ". " + taskText); // Use numbered list
-                }
+                taskText = "<html><s>" + task.name + " (Due: " + task.dueDate + ", Priority: " + task.priority + ")</s></html>";
+            } else {
+                taskText = task.name + " (Due: " + task.dueDate + ", Priority: " + task.priority + ")";
             }
+            if (useBulletList) {
+                setText("\u2022 " + taskText); // Add bullet point
+            } else {
+                setText((index + 1) + ". " + taskText); // Use numbered list
+            }
+        }
             return c;
         }
     }
