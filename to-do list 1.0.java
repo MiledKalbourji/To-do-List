@@ -236,17 +236,18 @@ public class ToDoListApp {
     }
 
     // Custom cell renderer for the task list
-    private class TaskCellRenderer extends DefaultListCellRenderer {
-        @Override
-        public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-            Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-            if (value instanceof Task) {
-                Task task = (Task) value;
-                String taskText;
-                if (task.completed) {
-                taskText = "<html><s>" + task.name + " (Due: " + task.dueDate + ", Priority: " + task.priority + ")</s></html>";
+private class TaskCellRenderer extends DefaultListCellRenderer {
+    @Override
+    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+        if (value instanceof Task) {
+            Task task = (Task) value;
+            String taskText = task.name + " (Due: " + task.dueDate + ", Priority: " + task.priority + ")";
+            setText(taskText);
+            if (task.completed) {
+                setForeground(Color.GRAY); // Set color to gray for completed tasks
             } else {
-                taskText = task.name + " (Due: " + task.dueDate + ", Priority: " + task.priority + ")";
+                setForeground(Color.BLACK); // Set color to black for incomplete tasks
             }
             if (useBulletList) {
                 setText("\u2022 " + taskText); // Add bullet point
@@ -254,7 +255,21 @@ public class ToDoListApp {
                 setText((index + 1) + ". " + taskText); // Use numbered list
             }
         }
-            return c;
+        return c; // Return the customized label component
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (getText() != null && getText().startsWith("\u2022 <html><s>")) {
+            // Get the width and height of the text
+            FontMetrics metrics = g.getFontMetrics();
+            int width = metrics.stringWidth(getText().substring(8)); // Remove bullet point and HTML tags from the width calculation
+            int height = metrics.getHeight();
+            // Draw a line across the text if it's a completed task
+            g.setColor(Color.GRAY);
+            g.drawLine(0, height / 2, width, height / 2);
         }
     }
+}
 }
